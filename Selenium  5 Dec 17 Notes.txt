@@ -1,0 +1,1290 @@
+Web driver 3 does not support mozilla 47 version.
+You will need to install 47.1 onwards veersion of mozilla.
+Selenium:
+
+Pre requisite:
+Basic java
+loops
+classes & objects
+error handling
+inheritance
+-------------------------------------------------------
+Java programming
+----------------------------------------------------
+
+What is selenium?
+Its open source tool
+for web applications
+Set of software to automate web browser.
+Regression testing & functional testing
+
+Supports provided by Selenium : 
+
+Operating environments:
+Mac, windows, linux etc...
+
+Browsers:
+Mozilla,IE, Google chrome,safari, opera etc...
+
+Programming language support:
+Java,c#, perl,python,Ruby,PHP etc..
+--------------------------------------------
+
+History of selenium : 
+
+2004 selenium launched  Jason Huggins --same origin policy
+2006 web driver launched--Paul --create a server for selenium core +aut
+2008 RC & Web driver merged.
+
+
+Selenium 1.0
+(Selenium IDE + RC + GRID)
+
+Selenium 2.0
+(Selenium IDE + RC + Web driver+ GRID)
+
+
+--------------------------------------------
+Components:
+--Selenium IDE:
+Integrated development environment.:
+
+Supports record & replay
+Firefox browser plugin.
+edit, create , execute & modify TEst cases & test suits
+Export selenium tc in other formats.
+
+IDE TC default will be in .html
+
+limitations:
+It can work only with Mozilla.
+it does not provide programming interface.
+data driven testing is not available
+does not support complex tc designs.
+no centralise maintenace for elements.
+-------------------------------------------------------------
+
+Selenium RC: Remote control.
+Execute test cases on multiple browsers
+
+
+IDE -> CHROME -> PORT-> SERVER DETAILS-> RESULT LOCATION
+Limitation:
+Only one browser we will be able to execute at a time.
+Through RC Server test cases will be executed on application.introduces delay in execution.
+
+--------------------------------------------------------------
+Grid:
+
+Used to execute tests across multiple browsers, operating environment & machines in 'parallel'.
+
+-----------------------------------------------------------
+
+Selenium web driver:
+provides programming interface to create & execute TCs.
+
+IDE HAS IDE(RECORD & REPLAY) But no programming interface
+WD Has programming interface but does not have IDE.
+
+It supports multiple OE like mac, linux,windows.
+It supports diffrent browsers, chrome, mozilla, IE, safari, Opera etc.
+It also supports pogramming environments like, java, c# , perl, python, php etc..
+
+
+limitations : 
+No IDE
+Does not support test suit execution.
+Details reports will not be generated using WD.
+NO centralised maintenance of elements.
+DATA driven testing not posible
+--------------------------------------------------------------
+
+Tools used in selenium:
+JUnit 
+TestNG Framework
+Eclipse
+JDK 1.6 <
+Selenium Web driver jar files 
+IDE Plugin
+Firebug & firepath plugin's for inspecting elements in firefox.
+IE OR Chrome browser f12 used to inspect the elements.
+browser drivers will be needed to execute scripts on multiple borwsers.
+------------------------------------------------------
+www.seleniumhq.org
+
+Reference vidio's:  Mukesh Otwani
+----------------------------------------------------------------------------
+	
+	Selenium 			UFT
+1. Open source			Paid tool (licensed)
+2. Supports various programming supports only vb for scripting
+	languages
+3. suitable for web based app	supports web, windows, mobile app
+4. Supports diffrent Browsers	recomonded to work with IE
+5. supports diffrent platforms	Can work with Windows
+  	OS
+6. No Addins needed		Addins needed
+7. Integration not posible with  Can integrate with 				ALM/QC tools
+	other tools
+8. No cetralised maintenace 	Centralised Object 				repository available
+	for elements
+9. Complicated setup		essy to install
+10.detail programming knowledge Easy to learn VB & tool
+	needed
+11. Less hardware resources  	More hardware resources used
+	needed
+12. Limited support for image	provides rich support 	for iMAGE Based tests	based testing
+13. No certification		Certifications 				available
+14. No dedicated recomonded	dedicated help / support by HP.			help available	
+
+----------------------------------------------------------------------
+TestNG:
+Next generation of JUNIT.
+We can maintain & generate detail reports
+We can define flow of execution for test cases.
+----------------------------------------------------------------
+
+testNG:next generation of JUNit
+
+configure TestNG:
+Install eclipse - > help-> eclipse marketplace-> serch for TestNG-> Install
+
+To confirm installation:
+Goto help-> install new-> already installed softwares-> testNG will be displayed
+
+To configure TestNG library:
+We have to create project-> rclick on project-> build path-> configure build path-> library-> add library-> select testNG-> open
+
+-----------------------------------------------------------------
+Annotations:
+
+predefined classes which will help us to define execution flow of test's in web driver.
+@Test : functionality under test
+@BeforeClass: pre requisites
+@Afterclass: release of resources.
+ex: 
+
+package TestNG_Tests;
+
+import org.testng.annotations.*;
+
+public class TestCase1 {
+  	@Test
+  public void login() {
+	  System.out.println("login tested");
+  }
+ @AfterClass
+ public void resource_released(){
+		System.out.println("Resources released");
+	}
+ @BeforeClass
+ public void resource_ready(){
+	  System.out.println("resources are ready");
+ }
+ 
+}
+-------------------------------------------------------
+
+@Test
+@BeforeMethod
+@AfterMethod
+
+Test : functionality under test should be defined in test annotation.
+DataProvider
+ex :
+--------------------------------------------
+priority:
+
+ex:
+
+package TestNG_Tests;
+
+import org.testng.Assert;
+import org.testng.annotations.*;
+
+public class TestCase1 {
+  	@Test(priority=1)
+  public void test_login() {
+	  System.out.println("login tested");
+	  Assert.fail();
+  }
+  	@Test(priority=2)
+  	public void test_compose(){
+  		System.out.println("Compose tested");
+  	}
+  	@Test(priority=3)
+  	public void test_inbox(){
+  		System.out.println("inbox tested");
+  	}
+  	/*@Test
+  	public void test_spam(){
+  		System.out.println("spam tested");
+  	}*/
+  	@Test(priority=4)
+  	public void test_logout(){
+  		System.out.println("logout tested");
+  	}
+ @AfterClass
+ public void close_browser(){
+		System.out.println("Browser Closed");
+	}
+ @BeforeClass
+ public void Open_browser(){
+	  System.out.println("Browser open");
+ }
+ 
+}
+
+
+We can execute tests in defined sequence.
+
+limitation: we can not define dependencies. 
+
+ex : 
+-------------------------------------------
+dependsOnMethods:
+ex:
+package TestNG_Tests;
+
+import org.testng.Assert;
+import org.testng.annotations.*;
+
+public class TestCase2 {
+	@Test
+	  public void test_login() {
+		  System.out.println("login tested");
+		  Assert.fail();
+	  }
+	  	@Test(dependsOnMethods={"test_login"})//single dependency
+	  	public void test_compose(){
+	  		System.out.println("Compose tested");
+	  	}
+	  	@Test(dependsOnMethods={"test_login","test_compose"})// multiple dependencies
+	  	public void test_inbox(){
+	  		System.out.println("inbox tested");
+	  	}
+	  	@Test(dependsOnMethods={"test_inbox"})
+	  	public void test_logout(){
+	  		System.out.println("logout tested");
+	  	}
+	 @AfterClass
+	 public void close_browser(){
+			System.out.println("Browser Closed");
+		}
+	 @BeforeClass
+	 public void Open_browser(){
+		  System.out.println("Browser open");
+	 }
+}
+--------------------------------------------------------
+dependencies/ priority/alpha:
+ex:
+
+package TestNG_Tests;
+
+import org.testng.Assert;
+import org.testng.annotations.*;
+
+public class TestCase2 {
+	@Test
+	  public void test_login() {
+		  System.out.println("login tested");
+		 // Assert.fail();
+	  }
+	  	@Test(dependsOnMethods={"test_login"})//single dependency
+	  	public void test_compose(){
+	  		System.out.println("Compose tested");
+	  	}
+	  	@Test(priority=3,dependsOnMethods={"test_login","test_compose"})// multiple dependencies
+	  	public void test_inbox(){
+	  		System.out.println("inbox tested");
+	  	}
+	  	@Test(priority=2,dependsOnMethods={"test_inbox"})
+	  	public void test_logout(){
+	  		System.out.println("logout tested");
+	  	}
+	 @AfterClass
+	 public void close_browser(){
+			System.out.println("Browser Closed");
+		}
+	 @BeforeClass
+	 public void Open_browser(){
+		  System.out.println("Browser open");
+	 }
+}
+
+
+------------------------------------------------------------
+
+7028915658
+
+@BeforeMethod: 
+@AfterMethod:
+@DataProvider: data driven teesting
+
+Application
+Call application @Test
+Parameterise inputes
+@DataProvider
+Array
+
+
+test suit/groups
+
+Test compose
+Chrome
+IE
+Safari
+
+ex:
+package TestNG_Tests;
+
+import org.testng.annotations.*;
+
+public class TestCase3 {
+  @BeforeMethod
+  public void Browser_open(){
+	  System.out.println("Browser open");
+  }
+	@Test
+  public void test_compose_chrome() {
+  System.out.println("compose tested on chrome");
+	}
+	@Test
+	  public void test_compose_ie() {
+	  System.out.println("compose tested on IE");
+	}
+	@Test
+	  public void test_compose_safari() {
+	  System.out.println("compose tested on safari");
+	}
+	@AfterMethod
+	public void browser_closed(){
+		System.out.println("browser closed");
+	}
+}
+---------------------------------------------------------------
+@DataProvider:
+will be used for parameterisation.
+
+1. create java application for addition of 2 numbers
+2. Create testNG class
+3. Call application in test annotation
+4. Define dataProvider to pass parameters
+5. Pass parameters from dataprovider to test annotation
+
+2 Number parameters = actual result
+Expected result
+
+ex:
+
+Application: (java class)
+
+package DataProvider_demo;
+
+public class calculator {
+	//public static void main(String[] args) {
+		public static int add(int a,int b){
+			return a+b;
+		}
+	}
+
+
+testNG class:
+
+package DataProvider_demo;
+
+import org.testng.Assert;
+import org.testng.annotations.*;
+
+public class testcase {
+	calculator calc = null;
+  @BeforeClass
+  public void create_calcinstance(){
+	 calc= new calculator();
+  }
+	@Test(dataProvider = "dpAdd")
+  public void test_add(int a, int b, int Expected_result) {
+		Assert.assertEquals(calc.add(a,b),Expected_result,"Actual result not equal to Expected result");
+		
+		/*int actual_result= calc.add(10,20);
+		if (actual_result==40){
+			System.out.println("test passed");
+		}
+		else {
+			System.out.println("test failed");
+			Assert.fail("Actual result not equal to Expected result");
+		}*/			
+  }
+	@DataProvider (name= "dpAdd")
+	public Object [][] getData(){
+		Object[][] table = new Object[][]{
+				{10,30,40},
+				{50,10,80},
+				{20,20,40},
+				{40,50,120},
+				{34,20,54},
+				{30,40,234}
+		};
+				return table;
+		}
+	
+	@AfterClass
+	public void close_calcinstance(){
+		calc=null;
+	}
+}
+
+----------------------------------------------------------------------
+
+To work with Excel for parameterization using JXL.
+1> Create test Data in xls format
+2> Download jxl file
+3> Add jxl jar in project
+4> Create excel utility
+5> Create file class object to take reference of excel workbook
+6> Get the reference of Workbook to open
+7> Get sheet ref using werkbook object
+8> read data from excel
+9> close workbook
+10> call excel method in dataprovider annotation in test class.
+
+ex: 
+
+TestNG class:
+
+package TestCase;
+
+import junit.framework.Assert;
+
+import org.testng.annotations.AfterClass;
+
+import org.testng.annotations.BeforeClass;
+
+import org.testng.annotations.DataProvider;
+
+import org.testng.annotations.Test;
+
+import TestCases.calculator;
+import utility.excel1;
+
+
+public class Testcase1 {
+	
+calculator calc = null;
+	
+@BeforeClass
+  public void create_calc_instance(){
+	 
+calc = new calculator();
+  
+}
+	
+@Test(dataProvider= "dp_add")
+  
+public void testAdd(String a, String b, String Expected_result) {
+		int n1=Integer.parseInt(a);
+		int n2=Integer.parseInt(b);
+		int exp=Integer.parseInt(Expected_result);
+		//Assert.assertEquals(calc.add(n1,n2), exp);
+		Assert.assertEquals("Actual result not matching with expected", exp,calc.add(n1,n2));
+		/*int actual_result= calc.add(10,30);
+		if (actual_result==50){
+			System.out.println("actual result is equal to expected result-test passed");
+		}
+		else {
+			System.out.println("actual result is not equal to expected result-test Failed");
+			Assert.fail("actual result is not equal to expected result");
+		}*/
+  }
+	
+@DataProvider(name="dp_add")
+	
+public Object[][]getData(){		
+		
+return excel1.readDataFromExcel();
+	
+}
+	
+	
+@AfterClass
+	
+public void release_calc_instance(){
+		
+calc = null;
+	}
+}
+
+
+----Excelytility:
+package utility;
+import java.io.*;
+import java.io.IOException;
+
+import jxl.*;
+	import jxl.Workbook;
+	import jxl.read.biff.BiffException;
+
+public class excel1 {
+	static File exl = new File("C:\\Users\\SK5039528\\Desktop\\Data.xls");
+	static Workbook wbk = null;
+	static Sheet sht1 = null;
+	static Object[][]data=null;
+	static{
+	try{
+		wbk =Workbook.getWorkbook(exl);
+		sht1=wbk.getSheet("testdata");
+	}
+	catch(BiffException be){}
+	catch(IOException ie){}
+	}
+		//public static void readDataFromExcel()
+	public static Object[][]readDataFromExcel()
+		{
+			int row_count= sht1.getRows();
+			int col_count= sht1.getColumns();
+			data =new Object[row_count-1][col_count];
+			//System.out.println("rows "+ row_count);
+			//System.out.println("column "+ col_count);
+			for (int row=1; row<row_count;row++){
+				for(int col=0;col<col_count;col++){
+				//System.out.print(sht1.getCell(col, row).getContents()+" ");
+					data[row-1][col]=sht1.getCell(col, row).getContents();
+				}
+				//System.out.println();
+			}
+			wbk.close();
+			return data;
+			}
+	//public static void main(String[]ar)
+	//{
+	//	readDataFromExcel();
+	//}
+	}
+
+
+--------------------------------------------------------
+Create test groups/suits/batch:
+Create test cases
+xml
+suite:
+
+ex:
+<suite name= "testsuite1">
+	<test name= "testbatch1">
+		<classes>
+			<class name="Testcases.testcase1"/>
+			<class name="Testcases.testcase2"/>
+		</classes>
+	</test>	
+</suite>
+------------------------------------------------------
+ex:
+
+<suite name= "testsuite1">
+	<test name= "testbatch1">
+		<classes>
+			<class name="Testcases.testcase1">
+				<methods>
+					<exclude name="method3"/>
+				</methods>
+			</class>
+			<class name="Testcases.testcase2"/>
+		</classes>
+	</test>	
+</suite>
+----------------------------------------------------------------
+
+
+batch
+class
+methods
+groups:
+
+package group;
+
+import org.testng.annotations.Test;
+
+public class testcase3 {
+  @Test(groups="sanity")
+  public void f1() {
+  System.out.println("sanity::f1");
+  }
+  @Test(groups="sanity")
+  public void f3() {
+  System.out.println("sanity::f3");
+  }
+  @Test(groups="sanity")
+  public void f5() {
+  System.out.println("sanity::f5");
+  }
+  @Test(groups="regression",dependsOnGroups={"sanity"})
+  public void f2() {
+  System.out.println("regression::f2");
+  }
+  @Test(groups="regression",dependsOnGroups={"sanity"})
+  public void f4() {
+  System.out.println("regression::f4");
+  }
+  @Test(groups="regression",dependsOnGroups={"sanity"})
+  public void f6() {
+  System.out.println("regression::f6");
+  }
+}
+
+
+xml:
+
+<suite name= "test suite2">
+	<test name= "batch2">
+		<classes>
+			<class name="group.testcase3"/>
+		</classes>
+		<groups>
+			<run>
+			<include name="regression"/>
+			</run>
+		</groups>
+	</test>
+</suite>
+
+--------------------------------------------------------
+to desable any method from execution:
+enabled=false
+in @Test(Enabled=false)
+-----------------------------------------
+
+Selenium IDE:
+Configure IDE
+Introduction to UI
+Record & replay scripts
+Create test cases & test suits
+Syncronisation commands
+Commands
+configure Firebug & firepath
+Element locators
+-----------------------------------------------
+
+Selenium IDE:
+Cofigure tool:
+Download IDE plugin from seleniumhq.org
+Open mozilla-> menu option-> install-> install new software-> browse plugin-> install
+restart mozilla
+-------------------------------------------
+UI Intro
+Create test case/ test suit
+
+Create test suite:
+
+create multiple test cases-> save all tc's
+go to file-> save test suit option-> save with .html extention
+
+Export TC to other languages:
+export tc using file-> export tc option.
+ex:save test case with .java extention for java format
+----------------------------------------------------------------
+Syncronization commands:
+
+
+default syncronization time 30000ms.
+IDE Options->options
+
+clickAndwait
+typeAndWait
+will use default sync time as max timeout
+
+waitForPageToLoad 23000
+
+----------------
+
+Pause:
+defined timeout will be executed then script will be continued to execute.
+ex:
+<tr>
+	<td>open</td>
+	<td>/</td>
+	<td></td>
+</tr>
+<tr>
+	
+<td>click</td>
+	<td>link=Payment Calculator</td>
+	
+<td></td>
+</tr>
+<tr>
+	
+<td>pause</td>
+<td>20000</td>
+	
+<td></td>
+</tr>
+<tr>
+	
+<td>type</td>
+	
+<td>id=cloanamount</td>
+	<td>800000</td>
+</tr>
+<tr>
+	
+<td>type</td>
+	<td>id=cloanterm</td>
+	<td>7</td>
+</tr>
+<tr>
+	
+<td>type</td>
+	<td>id=cinterestrate</td>
+	<td>8.75</td>
+</tr>
+<tr>
+	
+<td>clickAndWait</td>
+	<td>css=input[type=&quot;image&quot;]</td>
+	
+<td></td>
+</tr>
+<tr>
+	
+<td>clickAndWait</td>
+	<td>link=Home</td>
+	<td></td>
+</tr>
+<tr>
+	
+<td></td>
+	
+<td></td>
+	
+<td></td>
+</tr>
+
+-------------------------
+waitForPageToLoad:
+we can define max timeout, but as soon as next element identifed, script will be continued.
+ex:
+click link=Payment Calculator  
+waitForPageToLoad 20000
+type id=cloanamount 800000
+type id=cloanterm 7
+--------------------------------------------------------
+
+Commands:
+Actions
+Asserts : Assert / verify/ waitFor  images, text , title
+Assesors
+
+	Actions:
+	To define operation to perform on application
+	Open
+	click
+	select
+	Action fails : execution will be terminated & error msg display
+---------------------------------
+	Asserts: 
+	To evaluate whether we are on correct page of application or not.
+	
+	Assert: AssertTitle, AssertText, AssertElements
+	if assert fails execution will be terminated
+	error message display	
+	
+	
+	verify: VerifyTitle, VerifyText, VerifyElements
+	if verify command fails, execution will NOT be terminated & error message display
+	
+	waitFor	:WaitForPage, WaitForText, WaitForElement
+
+----------
+	Accessors:
+		Define temparary variables
+		store
+		storetext
+		storeTitle
+	echo ${variable name}
+------------------------------------------------------------
+
+Firebug & firepath: (only for mozilla)
+configure tool:
+Download firebug & firepath-> goto mozilla-> settings-> add-ons-> options-> 
+Install add on from file-> browse the plugins-> install
+restart mozilla.
+
+For element inspection in chrome or IE :
+You can use f12.
+----------------------------------------------------------
+Use of tools:
+
+Element locators:
+ID	: logical name provided by developer while ceating application.
+XPATH	: pointer to the location in XML table where the element references are stores
+	relative:
+	Absolute:
+CLASS	:
+TAG	:
+DOM	:Document Object Model
+linkedText : 
+partialLinkedText:
+CSS:
+name:
+----------------------------------------------------------
+Web Driver:
+Eclipse
+JDK
+Java lang binding jar
+chrome or IE Drivers
+
+
+Configure Web driver:
+Seleniumhq download Web driver jar fills language binding
+Eclipse-> create project-> build path-> configure path-> java buildpath-> 
+library-> add external files-> browse jars-> add
+
+create package-> create java class
+--------------------------------------------------------
+Browser
+Max
+close
+open
+put URL
+refresh
+Navigate within pages
+back
+forward
+---------------------------------------------------
+Editbox
+Dropdowns
+Images as button, links
+Capture the data from drop down
+Mousehouvers
+Window authontication 
+Snapshots
+
+Test cases
+------------------------------------
+
+Browser:
+browser instance
+WebDriver driver= new FirefoxDriver();
+Open
+Close
+driver.close();
+max
+river.manage().window().maximize();
+put URL
+river.get("http:\\www.calculator.net");
+Refresh
+navigate back
+navigate forward
+Capture Page title
+System.out.println("page title: "+driver.getTitle());
+capture Current URL
+System.out.println("page URL: "+driver.getCurrentUrl());
+Capture Page source
+System.out.println(driver.getPageSource());
+
+EX:
+FirefoxDriver driver =new FirefoxDriver();
+		driver.manage().window().maximize();
+		driver.get("http:\\www.google.com");
+		System.out.println("current URL: "+driver.getCurrentUrl());
+		driver.navigate().to("https://webapp2.syntelinc.com");
+		String URL = driver.getCurrentUrl();
+		System.out.println("URL Is: "+ URL);
+		driver.navigate().back();
+		System.out.println("current URL: "+driver.getCurrentUrl());
+		driver.navigate().forward();
+		System.out.println("current URL: "+driver.getCurrentUrl());
+		driver.close();
+	}
+
+EX:
+FirefoxDriver driver =new FirefoxDriver();
+		driver.manage().window().maximize();
+		driver.get("http:\\www.google.com");
+		driver.getTitle();
+		System.out.println("current TITLE: "+driver.getTitle());
+		driver.navigate().to("https://webapp2.syntelinc.com");
+		System.out.println("current TITLE: "+driver.getTitle());
+		driver.navigate().back();
+		System.out.println("current TITLE: "+driver.getTitle());
+		driver.navigate().forward();
+		System.out.println("current TITLE: "+driver.getTitle());
+		driver.close();
+-----------------------------------------------------
+How to create Test Cases:
+Link:
+Click
+capture enable/displayed/selected:
+ex:
+FirefoxDriver driver =new FirefoxDriver();
+		driver.manage().window().maximize();
+		driver.get("http:\\www.google.com");
+		//driver.findElement(By.linkText("Gmail")).click();
+		System.out.println("is displayed: "+driver.findElement(By.partialLinkText("Imag")).isDisplayed());
+		System.out.println("is enabled: "+driver.findElement(By.partialLinkText("Imag")).isEnabled());
+		System.out.println("is selected: "+driver.findElement(By.partialLinkText("Imag")).isSelected());
+		//driver.close();
+-----------------------------------------
+Edit boxes:
+ex:
+FirefoxDriver driver =new FirefoxDriver();
+		driver.manage().window().maximize();
+		driver.get("http:\\www.google.com");
+		driver.findElement(By.cssSelector("#lst-ib")).sendKeys("india");
+		System.out.println(driver.findElement(By.cssSelector("#lst-ib")).isSelected());
+		//driver.close();
+
+Dropdowns:
+ex:
+FirefoxDriver driver =new FirefoxDriver();
+		driver.manage().window().maximize();
+		driver.navigate().to("https://www.travelboutiqueonline.com/Hoteliers.aspx");
+		Select dropdown = new Select(driver.findElement
+(By.xpath("//*[@id='crmWebToEntityForm']/form/div[4]/select")));
+		dropdown.selectByVisibleText("Others");
+		//driver.close();
+
+--------------------------ski
+to return count of dropdown contents:
+ex:
+FirefoxDriver driver =new FirefoxDriver();
+		driver.manage().window().maximize();
+		driver.navigate().to("https://www.travelboutiqueonline.com/Hoteliers.aspx");
+		Select dropdown = new Select(driver.findElement
+(By.xpath("//*[@id='crmWebToEntityForm']/form/div[4]/select")));
+		List<WebElement> list1= dropdown.getOptions();
+		System.out.println("contents of dropdown: "+list1.size());
+		//driver.close();
+---------------------------------------------------------
+
+Images:
+ex:
+driver.findElement(By.xpath("html/body/div[2]/div[2]/div[3]/div[3]/a/img")).click();
+----------------------------------------------------
+Capture result:
+ex:
+
+FirefoxDriver driver =new FirefoxDriver();
+		driver.manage().window().maximize();
+		driver.get("http://www.calculatorsoup.com/calculators/time/date-difference-calculator.php");
+		driver.findElement(By.xpath("//*[@id='d_0']")).clear();
+		driver.findElement(By.xpath("//*[@id='d_0']")).sendKeys("01/01/2017");
+		driver.findElement(By.xpath("//*[@id='d_1']")).clear();
+		driver.findElement(By.xpath("//*[@id='d_1']")).sendKeys("04/27/2017");
+		driver.findElement(By.xpath("//*[@id='business']")).click();
+		driver.findElement(By.xpath("//*[@id='actionCalculate']/input")).click();
+		System.out.println("Answer: "+driver.findElement(By.xpath("//*[@id='answer']")).getText());
+		//driver.close();
+---------------------------------------------------
+
+
+Manual test case:
+
+Open browser
+Max
+Put URL
+Click Loan link
+Enter details in edit boxes
+Select value from dropdowns
+select value using index number
+	using visible text
+	using value
+
+Click on image
+capture output & print Output in console
+ex:
+package commands;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.Select;
+
+public class testcase1 {
+
+	public static void main(String[] args) {
+		WebDriver driver= new FirefoxDriver();
+		driver.manage().window().maximize();
+		driver.get("http:\\www.calculator.net");
+		driver.findElement(By.linkText("Loan Calculator")).click();
+		driver.findElement(By.id("cloanamount")).clear();
+		driver.findElement(By.id("cloanamount")).sendKeys("238300");
+		driver.findElement(By.xpath("//*[@id='cloanterm']")).clear();
+		driver.findElement(By.xpath("//*[@id='cloanterm']")).sendKeys("7");
+		driver.findElement(By.id("cloantermmonth")).clear();
+		driver.findElement(By.id("cloantermmonth")).sendKeys("2");
+		driver.findElement(By.id("cinterestrate")).clear();
+		driver.findElement(By.id("cinterestrate")).sendKeys("4");
+		Select dropdown1= new Select (driver.findElement(By.id("ccompound")));
+		dropdown1.selectByVisibleText("Weekly");
+		Select dropdown2= new Select (driver.findElement(By.id("cpayback")));
+		dropdown2.selectByIndex(1);
+		driver.findElement(By.xpath("//*[@id='calinputtable']/tbody/tr[7]/td/input")).click();
+		String payment= driver.findElement
+(By.xpath("//*[@id='content']/table[1]/tbody/tr/td[2]/table/tbody/tr[1]/td[2]/b")).getText();
+		System.out.println("payment: "+payment);
+		System.out.println("total intrest: "+ driver.findElement
+(By.xpath("//*[@id='content']/table[1]/tbody/tr/td[2]/table/tbody/tr[3]/td[2]/b")).getText());
+		driver.quit();
+	}
+
+}
+--------------------------------------
+driver.close();
+will close only focussed instance
+
+driver.quit();
+will close all the instances invoked by driver.
+
+--------------
+Working with authontication window:
+EX:
+
+WebDriver driver=new FirefoxDriver();
+		driver.manage().window().maximize();
+		Runtime.getRuntime().exec("C:\\Users\\SK5029360\\Desktop\\AutoIT\\Window_handle.exe");
+		driver.get("https://syntelligence.syntelinc.com/_layouts/15/
+login.aspx?ReturnUrl=%2f_layouts%2f15%2fAuthenticate.aspx%3fSource%3d%252F&Source=%2F");
+		driver.findElement(By.linkText("Click Here")).click();
+		
+	}
+
+
+AutoIT:
+file upload download authentication 
+
+WinWaitActive("Authentication Required")
+Send("username")
+Send("{TAB}")
+Send("password")
+Send("{ENTER}")
+---------------------------------------------------
+Capturing snapshot:
+WebDriver driver = new FirefoxDriver();      
+	      // Puts an Implicit wait, Will wait for 10 seconds before throwing exception
+	      driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);	      
+	      // Maximize the browser
+	      driver.manage().window().maximize();
+	      driver.get("http:\\www.calculator.net");
+			driver.findElement(By.linkText("Loan Calculator")).click();
+			driver.findElement(By.id("cloanamount")).clear();
+			driver.findElement(By.id("cloanamount")).sendKeys("9876000");
+			driver.findElement(By.id("cloanterm")).clear();
+			driver.findElement(By.id("cloanterm")).sendKeys("10");
+			driver.findElement(By.id("cloantermmonth")).clear();
+			driver.findElement(By.id("cloantermmonth")).sendKeys("3");
+			driver.findElement(By.xpath("//*[@id='cinterestrate']")).clear();
+			driver.findElement(By.xpath("//*[@id='cinterestrate']")).sendKeys("4");
+			Select dropdown = new Select(driver.findElement(By.id("ccompound")));
+			//Thread.sleep(6000);
+			dropdown.selectByIndex(2);
+			Select dropdown1 = new Select(driver.findElement(By.id("cpayback")));
+			//Thread.sleep(6000);
+			dropdown1.selectByVisibleText("Every Quarter");
+			//Thread.sleep(6000);
+			driver.findElement(By.xpath("//*[@id='calinputtable']/tbody/tr[7]/td/input")).click();
+			System.out.println("Payment Every Quarter: "+driver.findElement
+(By.xpath(".//*[@id='content']/table[1]/tbody/tr/td[2]/table/tbody/tr[1]/td[2]/b")).getText());
+			System.out.println("Total intrest: "+driver.findElement
+(By.xpath("//*[@id='content']/table[1]/tbody/tr/td[2]/table/tbody/tr[3]/td[2]/b")).getText());	      
+	      File screenshot = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);	      
+	      FileUtils.copyFile(screenshot, new File("D:\\screenshots\\screenshot1.jpg"));
+	}
+
+ex:
+
+System.setProperty("webdriver.chrome.driver","D:\\chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+		driver.manage().window().maximize();
+		driver.get("http://www.calculatorsoup.com/calculators/time/date-difference-calculator.php");
+		driver.findElement(By.xpath("//*[@id='d_0']")).clear();
+		driver.findElement(By.xpath("//*[@id='d_0']")).sendKeys("01/01/2017");
+		driver.findElement(By.xpath("//*[@id='d_1']")).clear();
+		driver.findElement(By.xpath("//*[@id='d_1']")).sendKeys("04/27/2017");
+		driver.findElement(By.xpath("//*[@id='business']")).click();
+		driver.findElement(By.xpath("//*[@id='actionCalculate']/input")).click();
+		System.out.println("Answer: "+driver.findElement(By.xpath("//*[@id='answer']")).getText());
+		
+		File screenshot = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+		FileUtils.copyFile(screenshot, new File("D:\\clicks123\\result.jpg"));
+
+//driver.close();
+
+------------------------------------------------------------------
+ex2 : to work with chrome browser with maximized mode.
+
+System.setProperty("webdriver.chrome.driver","D:\\chromedriver.exe");
+		/*//ChromeDriver driver = new ChromeDriver();
+		ChromeOptions chrome = new ChromeOptions();
+		chrome.addArguments("--start-maximized");
+		ChromeDriver driver = new  ChromeDriver (chrome);
+		//driver.manage().window().maximize();
+		Thread.sleep(4000);
+		driver.get("http:\\www.calculator.net");
+}*/
+
+--------------------------------------------------------------
+Working with diffrent browsers:
+
+All methods will be same for any browser,
+commands will remain same
+
+You have to configure webDriver exe path.
+
+ex:
+
+System.setProperty("webdriver.chrome.driver","D:\\chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+		driver.manage().window().maximize();
+		Thread.sleep(3000);
+		driver.get("https://www.google.co.in");
+		driver.findElement(By.className("gsfi")).sendKeys("india");
+		
+	}
+--------------------------------------------------------------------------
+Mouse hover:
+
+WebDriver driver = new FirefoxDriver();
+		driver.manage().window().maximize();
+		driver.get("http:\\www.carmax.com");
+		Actions builder = new Actions(driver);
+		WebElement menuElement= driver.findElement(By.linkText("CARS FOR SALE"));
+		builder.moveToElement(menuElement).build().perform();
+		driver.findElement(By.linkText("Transfers")).click();
+		driver.close();
+
+Capture title & print in console:
+
+ex:
+
+package Testcases;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.interactions.Actions;
+
+public class mousehover {
+
+	public static void main(String[] args) {
+		WebDriver driver = new FirefoxDriver();
+		driver.manage().window().maximize();
+		driver.get("https://www.carmax.com/");
+		Actions builder = new Actions (driver);
+		WebElement menuElement= driver.findElement(By.linkText("FINANCING"));
+		String text = menuElement.getAttribute("title");
+		System.out.println(text);
+		driver.findElement(By.linkText("Car Payment Calculator")).click();
+	}
+
+}
+---------------------------------------------------------------------
+implicit wait:
+Implicit wait will be applicable for all the elements in script.
+Only once we have to define in script.
+
+driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+
+explicit wait:
+Explicitly we can define timeout for perticular element.
+
+WebDriverWait wait=new WebDriverWait(driver,timeout);
+
+ex:
+
+WebDriver driver = new FirefoxDriver();
+		driver.manage().window().maximize();
+		driver.get("http:\\www.calculator.net");
+		WebElement loan_link=getElementWhenVisible(driver,By.linkText("Loan Calculator"),30);
+		loan_link.click();
+	}
+
+	private static WebElement getElementWhenVisible(WebDriver driver,
+			By locator, int i) {
+		WebElement de = null;
+		WebDriverWait wait = new WebDriverWait(driver,i);
+		de=wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+		return de;
+	
+	}
+
+----------------------------------------------
+FluentWait
+Wait instance = new fluentwait(driver).timeout().poolingevery(time).ignoreexceptions();
+
+element
+DOM
+-----------------------------------------------------------
+Window Handle:
+
+package wd_commands;
+
+import java.util.Set;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+
+public class testcase2 {
+
+	public static void main(String[] args) {
+		WebDriver driver = new FirefoxDriver();
+		driver.manage().window().maximize();
+		driver.get("https://www.online.citibank.co.in/");
+		driver.findElement(By.xpath
+("//*[@id='container']/div[2]/div[2]/div/div[1]/div[1]/p[2]/a[1]/img")).click();
+		String parent = driver.getWindowHandle();
+		//System.out.println(parent);
+		Set<String>Handles=driver.getWindowHandles();
+		int BrowserCount=Handles.size();
+		System.out.println(BrowserCount);
+		for (String S1: Handles){
+			if (!S1.equals(parent)){
+				driver.switchTo().window(S1);
+				System.out.println(driver.getCurrentUrl());
+			}
+		}
+		driver.switchTo().window(parent);
+		System.out.println(driver.getCurrentUrl());
+	}
+
+}
+----------------------------------------------------------------------------------
+How to open new tab & put URL.
+package webdriver_commands;
+
+import java.util.ArrayList;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+public class testcase2 {
+
+	public static void main(String[] args) {
+		
+		WebDriver driver = new FirefoxDriver();
+		driver.get("https:\\www.calculator.net");
+		driver.findElement(By.cssSelector("body")).sendKeys(Keys.CONTROL +"t");
+	    ArrayList<String> tabs = new ArrayList<String> (driver.getWindowHandles());
+	    driver.switchTo().window(tabs.get(0));
+	    driver.get("https:\\www.google.co.in");
+		
+	}
+
+}
+---------------------------------------------------------------------------
+-Oracle jar file --oracle.jdbc.driver 
+-oracle instance client v.12.2 for connecting oracle 10c
+for database remote connection
+-oracle TNS_Listeners service ---
+----------------------------------------------------------
+id
+name
+partiallinktext
+linktext
+cssSelector
+xpath
+
